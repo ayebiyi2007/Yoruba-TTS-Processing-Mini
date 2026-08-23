@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="A basic Yoruba text-to-speech website using the browser Web Speech API."
+  >
+  <title>Yorùbá Text to Speech</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <p class="eyebrow">Browser-based demo</p>
+      <h1>Yorùbá Text to Speech</h1>
+      <p class="intro">
+        Enter Yorùbá text, choose an available voice, and press
+        <strong>Speak</strong>.
+      </p>
+    </header>
+
+    <section class="panel" aria-labelledby="text-heading">
+      <div class="section-heading">
+        <h2 id="text-heading">Yorùbá text</h2>
+        <span id="characterCount" class="character-count">0 characters</span>
+      </div>
+
+      <label class="sr-only" for="yorubaText">Text to speak</label>
+      <textarea
+        id="yorubaText"
+        rows="9"
+        spellcheck="true"
+        lang="yo"
+        placeholder="Kọ ọ̀rọ̀ Yorùbá síbí..."
+      >Ẹ káàbọ̀! Orúkọ mi ni Adé. Inú mi dùn láti bá yín sọ̀rọ̀ ní èdè Yorùbá.</textarea>
+
+      <div class="character-tools" aria-label="Insert Yoruba characters">
+        <span>Insert:</span>
+        <button class="character-button" type="button" data-character="ẹ">ẹ</button>
+        <button class="character-button" type="button" data-character="Ẹ">Ẹ</button>
+        <button class="character-button" type="button" data-character="ọ">ọ</button>
+        <button class="character-button" type="button" data-character="Ọ">Ọ</button>
+        <button class="character-button" type="button" data-character="ṣ">ṣ</button>
+        <button class="character-button" type="button" data-character="Ṣ">Ṣ</button>
+        <button class="character-button" type="button" data-character="á">á</button>
+        <button class="character-button" type="button" data-character="à">à</button>
+        <button class="character-button" type="button" data-character="é">é</button>
+        <button class="character-button" type="button" data-character="è">è</button>
+        <button class="character-button" type="button" data-character="í">í</button>
+        <button class="character-button" type="button" data-character="ì">ì</button>
+        <button class="character-button" type="button" data-character="ó">ó</button>
+        <button class="character-button" type="button" data-character="ò">ò</button>
+        <button class="character-button" type="button" data-character="ú">ú</button>
+        <button class="character-button" type="button" data-character="ù">ù</button>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="voice-heading">
+      <h2 id="voice-heading">Voice settings</h2>
+
+      <div class="settings-grid">
+        <label class="field field--wide">
+          <span>Voice</span>
+          <select id="voiceSelect">
+            <option value="">Loading voices...</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Rate: <output id="rateOutput" for="rate">1.0</output></span>
+          <input id="rate" type="range" min="0.5" max="2" value="1" step="0.1">
+        </label>
+
+        <label class="field">
+          <span>Pitch: <output id="pitchOutput" for="pitch">1.0</output></span>
+          <input id="pitch" type="range" min="0" max="2" value="1" step="0.1">
+        </label>
+
+        <label class="field">
+          <span>Volume: <output id="volumeOutput" for="volume">1.0</output></span>
+          <input id="volume" type="range" min="0" max="1" value="1" step="0.1">
+        </label>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Speech controls">
+      <button id="speakButton" class="button button--primary" type="button">
+        Speak
+      </button>
+      <button id="pauseButton" class="button" type="button">
+        Pause
+      </button>
+      <button id="resumeButton" class="button" type="button">
+        Resume
+      </button>
+      <button id="stopButton" class="button button--danger" type="button">
+        Stop
+      </button>
+      <button id="clearButton" class="button" type="button">
+        Clear
+      </button>
+    </section>
+
+    <section
+      id="statusBox"
+      class="status"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <strong>Status:</strong>
+      <span id="statusText">Preparing the speech engine...</span>
+    </section>
+
+    <aside class="notice">
+      <h2>Voice availability</h2>
+      <p>
+        This demo asks the browser for a <code>yo</code> or
+        <code>yo-NG</code> voice. If your device has no Yoruba voice,
+        the browser may use another voice and pronounce the text poorly.
+      </p>
+    </aside>
+  </main>
+
+  <script src="tts.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
